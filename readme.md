@@ -185,7 +185,7 @@ Let's write a test for a suitably ~~dull~~ exciting exercise component: the Quot
 
 ## Writing our first React Test
 
-As we learned in [Advanced TDD with Go](github.com/bjssacademy/advanced-tdd), the best way to write a test before code is to think of it as an executable specification.
+As we learned in [Advanced TDD with Go](https://github.com/bjssacademy/advanced-tdd), the best way to write a test before code is to think of it as an executable specification.
 
 We're going to write a basic React component to show us a Quote of the Day.
 
