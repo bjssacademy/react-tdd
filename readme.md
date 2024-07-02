@@ -35,7 +35,7 @@ Type
 cd my-react-app
 ```
 
-and you can even double-check by typing `pwd`.
+and you can even double-check by typing `pwd`. If you are using Mac or Linux, that is. Windows generally shows the full path in the command prompt. Simply give it a quick check.
 
 We need to add the test tools to the parent directory of our React app.
 
