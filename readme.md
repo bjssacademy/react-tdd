@@ -202,7 +202,7 @@ We can make some good-practice design decisions:
 
 To write our first test, we capture those decisions into test code.
 
-We're using vitest syntax for this. This syntax is designed to be identical to the Jest test frameowrk, as that is very widely known. Vitest integrates better with vite.
+We're using vitest syntax for this. This syntax is designed to be identical to the Jest test framework, as that is very widely known. Vitest integrates better with vite.
 
 ### Create the test file
 
