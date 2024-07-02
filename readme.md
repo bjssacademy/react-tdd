@@ -261,9 +261,13 @@ describe("Quote component", () => {
 
 When we run the test using
 
-the test passes. We have a Quote component available.
+```bash
+npm run -- --test
+```
 
-The next step is to make it do something.
+The test passes. We have a Quote component available.
+
+It's not the world's _best_ component, exactly. We need to make it actually do something.
 
 ### Rendering the header text
 
