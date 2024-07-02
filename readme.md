@@ -304,7 +304,9 @@ and as expected, the test fails, telling us that no such text can be found:
 
 ![Test fail - missing heading text](images/quote-fails-heading-text.png)
 
-That's simple enought ofix. We add _just enough_ code to the component to fulfil this part of our specification:
+That's simple enought to fix. We add _just enough_ code to the component to make the test pass (and fulfil the slice of specification we are working on).
+
+Add the following `return` value to `Quote.jsx`:
 
 ```jsx
 const Quote = () => {
@@ -324,7 +326,7 @@ The `screen` object allows us to define the kind of heading we want to find. We 
 
 In our test, we say we want to find something displayed with the ARIA role of `heading`. We would like that to be at `level 2`.
 
-Let's add this level of detail into our existing test, to strngthen it:
+Let's add this level of detail into our existing test, to strengthen it:
 
 ```jsx
 import * as React from "react";
@@ -363,7 +365,7 @@ Run the test. It passes.
 
 Our final piece of work involves displaying the actual quotation itself. We took a design decision to pass in the quote text as a React property, called `text`.
 
-Let's specify this in a new test, added to our _describe_ block of `Quote.spec.jsx`:
+Let's specify this in a new test, added to our `describe` block of `Quote.spec.jsx`:
 
 ```jsx
 it("renders quotation passed in as property", () => {
@@ -375,7 +377,7 @@ it("renders quotation passed in as property", () => {
 
 We run that test and watch it fail. Ah, the very heartbeat of our misery.
 
-Anyway, cheer up. We can add this code into `Quote.jsx' to make it pass:
+Anyway, cheer up. We can add this React code into `Quote.jsx` to make it pass:
 
 ```jsx
 const Quote = ({ text }) => {
@@ -389,6 +391,8 @@ const Quote = ({ text }) => {
 
 export default Quote;
 ```
+
+You can find out more about why that exact code is needed over at [BJSS Academy React Basics](https://github.com/bjssacademy/react-basics)
 
 The test will now pass.
 
@@ -433,4 +437,5 @@ Navigating to this URL in Chrome shows us our `<Quote />` component in all its g
 - [React Testing Library Tutorial](https://www.robinwieruch.de/react-testing-library/)
 - [Vitest documentation](https://vitest.dev/guide/)
 - [BJSS Academy Advanced TDD in Go](https://github.com/bjssacademy/advanced-tdd)
+- [BJSS Academy React Basics](https://github.com/bjssacademy/react-basics)
 - [Mastering React Test-Driven Development](https://www.oreilly.com/library/view/mastering-react-test-driven/9781803247120)
