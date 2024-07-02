@@ -428,5 +428,5 @@ Navigating to this URL in Chrome shows us our `<Quote />` component in all its g
 - [react testing Library Cheatsheet](https://testing-library.com/docs/react-testing-library/cheatsheet/)
 - [React Testing Library Tutorial](https://www.robinwieruch.de/react-testing-library/)
 - [Vitest documentation](https://vitest.dev/guide/)
-- [BJSS Academy Advanced TDD in Go](github.com/bjssacademy/advanced-tdd)
+- [BJSS Academy Advanced TDD in Go](https://github.com/bjssacademy/advanced-tdd)
 - [Mastering React Test-Driven Development](https://www.oreilly.com/library/view/mastering-react-test-driven/9781803247120)
