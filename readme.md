@@ -439,3 +439,5 @@ Navigating to this URL in Chrome shows us our `<Quote />` component in all its g
 - [BJSS Academy Advanced TDD in Go](https://github.com/bjssacademy/advanced-tdd)
 - [BJSS Academy React Basics](https://github.com/bjssacademy/react-basics)
 - [Mastering React Test-Driven Development](https://www.oreilly.com/library/view/mastering-react-test-driven/9781803247120)
+- [TDD done wrong](https://www.industriallogic.com/blog/tdd-youre-doing-it-wrong/)
+- [3 Rules of TDD](http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd)
