@@ -14,6 +14,8 @@ How do we test this in React?
 
 A recommended approach is to create a Test Double for the API using Mock Service Workers.
 
+![Shows the React component fetching data from a Test Double of the API](/images/react-api-double.png)
+
 A Test Double is a stand-in for a real software component. A double avoids having to test against the real API. Real APIs sometimes are unavailable. Their responses are slow, compared to the in-memory unit tests we are used to. The data returned can be unpredictable, depending on what state that API had been left in.
 
 If we swap out a real API for a specially crafted test double, we get to control the exact data returned to our test. This makes writing the assertion a piece of cake, as we know exactly what data is being sent to our code. As a bonus, we avoid problems of connectivity, as our Test Double runs in memory.
