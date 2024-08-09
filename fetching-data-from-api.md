@@ -239,7 +239,11 @@ describe("QuoteLoader", () => {
 });
 ```
 
-The next iterations for our `<QuoteLoader />` component would be to test-drive the isLoading behaviour and error handling.
+The next iterations for our `<QuoteLoader />` component would be to test-drive:
+
+- isLoading behaviour
+- error handling
+- externalise the URL into a Configuration object
 
 ## Review
 
