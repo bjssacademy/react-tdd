@@ -185,4 +185,4 @@ Let's write a test for a suitably ~~dull~~ exciting exercise component: the Quot
 
 # Next
 
-Test-first [Dislpaying Data](/displaying-data.md)
+Test-first [Displaying Data](/displaying-data.md)

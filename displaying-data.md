@@ -246,6 +246,10 @@ Navigating to this URL in Chrome shows us our `<Quote />` component in all its g
 
 ![Chrome browser output](images/chrome-quote-output.png)
 
+## Review
+
+We have successfully test-driven a React component which displays data passed in as props.
+
 # Next
 
 Test-first [Fetching Data](/fetching-data-from-api.md)

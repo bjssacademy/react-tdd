@@ -12,7 +12,7 @@ How do we test this in React?
 
 ## Test Doubles with Mock Service Workers
 
-The current advice is to create a Test Double for the API using Mock Service Workers.
+A recommended approach is to create a Test Double for the API using Mock Service Workers.
 
 A Test Double is a stand-in for a real software component. A double avoids having to test against the real API. Real APIs sometimes are unavailable. Their responses are slow, compared to the in-memory unit tests we are used to. The data returned can be unpredictable, depending on what state that API had been left in.
 
@@ -22,7 +22,7 @@ Service Workers are a comparatively recent addition to browser features. They en
 
 # Test-driving a QuoteLoader component
 
-Let's TDD a React component that will load a quote from an external Quote API, then pass it to out `<Quote />` component.
+Let's TDD a React component that will load a quote from an external API, then pass it to our `<Quote />` component.
 
 We'll start by creating the test file `QuoteLoader.spec.jsx`:
 
@@ -70,13 +70,13 @@ For that, we need to do a little bit of API design.
 
 As with every API, we need to design a contract between our client code (React UI) and the API server.
 
-The most popular approach is to use a REST API. Our API will support a GET request to {baseUrl}/quoteoftheday. It will return an HTTP 200 OK, with a payload of a quote in the following JSON format:
+One popular approach is to use a REST API. Our API will support a GET request to `{baseUrl}/quoteoftheday`. It will return an HTTP 200 OK, with a payload of a quote in the following JSON format:
 
 ```json
-{ "text": "<text of quotation>" }
+{ "text": "USB leads fit on the third try, #FACT" }
 ```
 
-This is just enough design for now. And just enough for us to build a fake API using Mock Service Workers.
+This is just enough design for now. And just enough for us to build a fake API server using Mock Service Workers.
 
 ## Applying the MockServiceWorker library
 
@@ -123,14 +123,14 @@ describe("QuoteLoader", () => {
 
 You might skip this next step, but I feel like adding a _scaffolding test_.
 
-I'm going to add a test that calls this mock API and checks that I can read raw returned data from it. As soon as the test for the `<QuoteLoader />` passes, I will delete this API test. It is just scaffolding to help me build with confidence. I don't want to be debugging a mistake in my Test Double setup at the same time as writing my QUoteLoader component.
+I'm going to add a test that calls this mock API and checks that I can read raw returned data from it. As soon as the test for the `<QuoteLoader />` passes, I will delete this API test. It is just scaffolding to help me build with confidence. I don't want to be debugging a mistake in my Test Double setup at the same time as writing my `<QuoteLoader />` component.
 
 ```jsx
 describe("QuoteLoader", () => {
   // Start fake Quote API
   stubQuoteApi.listen();
 
-  it.skip("tests the API runs", async () => {
+  it("tests the API was setup correctly", async () => {
     const response = await fetch("https://example.com/quoteoftheday");
     const quote = await response.json();
     const text = quote.text;
@@ -141,7 +141,7 @@ describe("QuoteLoader", () => {
 
 This test passes. The mock API is returning expected data. Happy days.
 
-Now we can test-drive our fetch in `<QuoteLoader />`. For that, we will use the popular `react-fetch-hook` library.
+Now we can test-drive our fetch behaviour in `<QuoteLoader />`. For that, we will use the popular `react-fetch-hook` library.
 
 Install `react-fetch-hook`:
 
@@ -173,7 +173,7 @@ Did you spot it? I'm calling the `useFetch()` hook, but:
 - I'm displaying it as raw text and not the `<Quote />` component
 - I've added the 'poison' word "received" so that even if I get the right data, my test will fail
 
-Run the test. It fails as expected but in a good way:
+Run the test. It fails as expected, but in a good way:
 
 ![Test output shows display of received just do it, the failure we wanted](/images/quoteloader-text-fail.png)
 
@@ -238,6 +238,10 @@ describe("QuoteLoader", () => {
   });
 });
 ```
+
+The next iterations for our `<QuoteLoader />` component would be to test-drive the isLoading behaviour and error handling.
+
+## Review
 
 We have successfully test-driven a React component which fetches data from an API. This is a general pattern of React development, and very useful.
 
