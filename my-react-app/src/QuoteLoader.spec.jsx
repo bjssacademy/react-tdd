@@ -12,6 +12,17 @@ const stubQuoteApiRoutes = [
       text: "Just do it",
     });
   }),
+
+  http.post("https://example.com/quote", async ({ request }) => {
+    const req = await request.json();
+
+    if (!req.text) {
+      return new HttpResponse("Missing quote text", { status: 400 });
+    }
+
+    // Success, no content returned
+    return HttpResponse.json({}, { status: 204 });
+  }),
 ];
 
 const stubQuoteApi = setupServer(...stubQuoteApiRoutes);
