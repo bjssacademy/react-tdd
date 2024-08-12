@@ -349,14 +349,86 @@ We see this work of art (though I say so myself, ahem):
 
 ## Adding error handling
 
-TODO TODO TODO
-error handling
+Happens to the best of us: your code makes an innocuous request, and something goes wrong at the other end. The API server may be unavailable; a recent API update might have broken either the server itself or the contract that we are expecting. Maybe somebody forgot to ut 50p in the electricity meter - who knows?
 
-TODO TODO TODO change below
-The next iterations for our `<QuoteLoader />` component would be to test-drive:
+When we get an error, we should do something about it.
 
-- error handling
-- externalise the URL into a Configuration object
+Error handling is a big subject, but it boils down to these ideas:
+
+- Can we _detect_ the error?
+- Can we _correct_ about the error?
+- Should we _inform_ the user about the error?
+
+For our `<QuoteLoader />` component, we can detect server errors, can't correct them, so decide to inform the user to try again later.
+
+Our test can be to detect that error text. We can start with this conventional looking test:
+
+```jsx
+it("informs the user of errors", async () => {
+  render(<QuoteLoader />);
+  expect(await screen.getByRole("alert")).toHaveTextContent(
+    "Error loading quote. Please try again later"
+  );
+});
+```
+
+However, this test will never run correctly. It has no way of _focing_ a server error.
+
+For this, we use a feature of the Mock Service Worker library called [network behaviour overrides](https://mswjs.io/docs/best-practices/network-behavior-overrides. This allows us to simulate a server error, just for this test:
+
+```jsx
+it("informs the user of errors", async () => {
+  stubQuoteApi.use(
+    http.get(
+      "https://example.com/quoteoftheday",
+      () => {
+        return HttpResponse.error();
+      },
+      { once: true }
+    )
+  );
+
+  render(<QuoteLoader />);
+
+  expect(
+    await screen.findByText("Error loading quote. Please try again later")
+  ).toBeInTheDocument();
+});
+```
+
+We've added the _one-time only_ override to our GET request. It will cause the API to return an HTTP error. Run the test and watch it fail in the expected way - there is no error text displayed.
+
+Add the code to `<QuoteLoader />`:
+
+```jsx
+import useFetch from "react-fetch-hook";
+import Quote from "./Quote";
+import Spinner from "./Spinner";
+
+const QuoteLoader = () => {
+  const { isLoading, data, error } = useFetch(
+    "https://example.com/quoteoftheday"
+  );
+
+  if (error) {
+    return <p>Error loading quote. Please try again later</p>;
+  }
+
+  if (isLoading) {
+    return <Spinner reason="Quote is loading..." />;
+  }
+
+  if (data) {
+    return <Quote text={data.text} />;
+  }
+};
+
+export default QuoteLoader;
+```
+
+The test passes. Whether or not the visuals are right is up for debate. But we have a test telling us that errors are to be detected, and the user should be advised what to do next.
+
+The next iterations for our `<QuoteLoader />` component would be a refactor. I want to move the hard-coded URL into a Configuration object. But I'll leave that as an exercise to the interested reader.
 
 ## Review
 
