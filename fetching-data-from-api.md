@@ -253,7 +253,7 @@ Let's add a loading spinner to our `<QuoteLoader />` component.
 
 ### Specifying our spinner
 
-We'll create a basic spinner using CSS animation, rather import a library. Obviously, using a library such as `react-loader-spinner` makes sense. But in the spirit of keeping the download light, and a developer "Not Invented Here" syndrome, we'll roll our own.
+We'll create a basic spinner using CSS animation, rather import a library. Obviously, using a library such as `react-loader-spinner` makes sense. But in the spirit of keeping the download light, and of developer "Not Invented Here" syndrome, let's roll our own.
 
 - Component called `<Spinner reason="waiting..."/>`
 - Will have the ARIA role of `status`
