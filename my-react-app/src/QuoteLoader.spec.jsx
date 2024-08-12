@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import QuoteLoader from "./QuoteLoader.jsx";
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
+import Spinner from "./Spinner.jsx";
 
 const stubQuoteApiRoutes = [
   // Intercept "GET https://example.com/quoteoftheday" requests...
@@ -33,7 +34,13 @@ describe("QuoteLoader", () => {
 
   it("fetches then renders quote text", async () => {
     render(<QuoteLoader />);
-    const quoteText = await screen.findByText("Just do it");
-    expect(quoteText).toBeInTheDocument();
+    expect(await screen.findByText("Just do it")).toBeInTheDocument();
+  });
+
+  it("shows a loading spinner while we wait", async () => {
+    render(<QuoteLoader />);
+    expect(await screen.getByRole("status")).toHaveTextContent(
+      "Quote is loading..."
+    );
   });
 });

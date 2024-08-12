@@ -241,6 +241,118 @@ describe("QuoteLoader", () => {
 });
 ```
 
+## Adding a loading spinner
+
+Good UX involves letting the user know what is happening - especially when it is _not_ happening.
+
+When we fetch data over a network, delays in response are common. There are many reasons for this - network congestion, overloaded server, or waiting for a serverless lambda function to warm up. Whatever, we should let the user know.
+
+_We wouldn't want users to stress out wondering if our Quote is going to appear, would we?_
+
+Let's add a loading spinner to our `<QuoteLoader />` component.
+
+### Specifying our spinner
+
+We'll create a basic spinner using CSS animation, rather import a library. Obviously, using a library such as `react-loader-spinner` makes sense. But in the spirit of keeping the download light, and a developer "Not Invented Here" syndrome, we'll roll our own.
+
+- Component called `<Spinner reason="waiting..."/>`
+- Will have the ARIA role of `status`
+- Takes a single property `reason`. This is hidden text for accessibility.
+- `reason` is displayed as hidden text, to be picked up by accessibility tech
+- CSS animation will be used to create a classic circle spinner
+
+We will test-drive from the `<QuoteLoader />`level and drive out a separate `<Spinner />` component.
+
+Add the following test to `QuoteLoader.spec.jsx`:
+
+```jsx
+it("shows a loading spinner while we wait", async () => {
+  render(<QuoteLoader />);
+  expect(await screen.getByRole("status")).toHaveTextContent(
+    "Quote is loading..."
+  );
+});
+```
+
+This looks for our Spinner via its ARIA accessibility role, then checks for the hidden text. The test fails, so we can add our `<Spinner />` component to `QuoteLoader.jsx`:
+
+```jsx
+import useFetch from "react-fetch-hook";
+import Quote from "./Quote";
+import Spinner from "./Spinner";
+
+const QuoteLoader = () => {
+  const { isLoading, data } = useFetch("https://example.com/quoteoftheday");
+
+  if (isLoading) {
+    return <Spinner reason="Quote is loading..." />;
+  }
+
+  if (data) {
+    return <Quote text={data.text} />;
+  }
+};
+
+export default QuoteLoader;
+```
+
+We've added an import to the file `Spinner.jsx`, which will contain our new React component.
+Create that now:
+
+```jsx
+import "./spinner.css";
+
+const Spinner = ({ reason }) => {
+  return (
+    <div role="status" className="spinner">
+      <span>{reason}</span>
+    </div>
+  );
+};
+
+export default Spinner;
+```
+
+and using the gift of the internet, we track down the mystical rhunes for the CSS animation. We place those in `spinner.css`:
+
+```css
+.spinner {
+  border: 10px solid whitesmoke;
+  border-top: 10px solid teal;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner > span {
+  visibility: hidden;
+}
+```
+
+Spin up the spinner test (_Ed: I've warned you about dad jokes_) and this time it passes.
+
+As a further visual check, we can go to `App.jsx` and temporarily put in our `<Spinner reason="hello" />` to check the visuals.
+
+We see this work of art (though I say so myself, ahem):
+
+![Our circular spinner allegedly spinning but it is a static image](/images/spinner-onscreen.png)
+
+## Adding error handling
+
+TODO TODO TODO
+error handling
+
+TODO TODO TODO change below
 The next iterations for our `<QuoteLoader />` component would be to test-drive:
 
 - isLoading behaviour

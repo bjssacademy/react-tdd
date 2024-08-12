@@ -148,6 +148,4 @@ The test passes.
 
 We have successfully test-driven an upload component. We have used a Mock Service Worker API test double to validate our POST request. This allows our TDD test to focus on what _the user_ experiences, rather than inspect implementation details.
 
-Next steps would be to test-drive loading and error handling behaviour.
-
 # Next
