@@ -355,7 +355,6 @@ error handling
 TODO TODO TODO change below
 The next iterations for our `<QuoteLoader />` component would be to test-drive:
 
-- isLoading behaviour
 - error handling
 - externalise the URL into a Configuration object
 
