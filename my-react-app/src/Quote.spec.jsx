@@ -1,5 +1,6 @@
 import * as React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, act, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Quote from "./Quote";
 
 describe("Quote component", () => {
@@ -17,11 +18,26 @@ describe("Quote component", () => {
     expect(screen.getByText("Truth eludes power")).toBeInTheDocument();
   });
 
-  it("likes a quote", async () => {
-    render(<Quote text="I just want to be liked" />);
+  it("has a Like button", async () => {
+    const user = userEvent.setup();
 
-    fireEvent.click(screen.getByRole("button"));
+    render(<Quote text="Optimise for Clarity" />);
 
-    expect(screen.getByRole("button")).toHaveTextContent("Liked");
+    const likeButton = await screen.findByRole("button");
+    expect(likeButton).toHaveTextContent("Like");
+  });
+
+  it("updates button text when liked", async () => {
+    const user = userEvent.setup();
+
+    render(<Quote text="Tests turn should into did" />);
+
+    const likeButton = await screen.findByRole("button");
+
+    act(() => {
+      user.click(likeButton);
+    });
+
+    await screen.findByText("Liked");
   });
 });

@@ -7,11 +7,13 @@ const Quote = ({ text }) => {
     setLiked(!liked);
   };
 
+  const buttonText = liked ? "Liked" : "Like";
+
   return (
     <>
       <h2>Quote of the Day</h2>
       <p>{text}</p>
-      <button onClick={likeThisQuote}>{liked ? "Liked" : "Like"}</button>
+      <button onClick={likeThisQuote}>{buttonText}</button>
     </>
   );
 };
