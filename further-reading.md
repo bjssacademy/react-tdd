@@ -3,6 +3,7 @@
 - [BJSS Academy React Basics](https://github.com/bjssacademy/react-basics)
 - [react testing Library Cheatsheet](https://testing-library.com/docs/react-testing-library/cheatsheet/)
 - [React Testing Library Tutorial](https://www.robinwieruch.de/react-testing-library/)
+- [Which query should I use?](https://testing-library.com/docs/queries/about/#priority)
 - [Common Mistakes with React Testing Library](https://kentcdodds.com/blog/common-mistakes-with-react-testing-library)
 - [Vitest documentation](https://vitest.dev/guide/)
 - [BJSS Academy Advanced TDD in Go](https://github.com/bjssacademy/advanced-tdd)
