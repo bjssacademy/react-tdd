@@ -1,24 +1,30 @@
 # Uploading Data to APIs
 
-Whatever comes down must have gone up, as they very nearly say. That's true with our React apps. Generally, if we fetch data from an API, we will want to upload to the API.
+Whatever comes down must have gone up, as they very nearly say.
+
+That's true with our React apps. Generally, if we fetch data from an API, we will want to upload to the API.
 
 The basic mechanics are similar. We can use `useFetch()` from `react-fetch-hook` to execute the upload. React uses JavaScript (or Typescript), making it very easy to send JSON data to an API.
 
-The TDDers question is: how do we test it? How can we assert that our data was sent? And how can we do it _without_ testing implementation details?
+The TDDers question is: how do we write an executable specification for this? How can we assert that our data was sent? And how can we do it _without_ testing implementation details?
 
 ## Creating a stub POST handler
 
-We can use the Mock Service Worker library as before. Once again, we need to do a little bit of API design.
+We can use the Mock Service Worker library as before. Before we do, we need to do a little bit of API design.
+
+> _Note:_ The API design may have already been done elsewhere. In this case, find out what it is, and do what it says
 
 ### REST API Design for upload
 
 - We'll use POST, to comply with normal REST expectations for uploading data
 - The endpoint path will be '/quote'
-- The data we submit will be in JSON format, with the following schema:
+- The data we submit will be in JSON format, with the following application-specific schema:
 
 ```json
 { "text": "Those who know do not predict. Those who predict do not know" }
 ```
+
+> When we say 'send data as JSON', we really mean two things: the JSON syntax (general purpose) and the schema of data values to transfer (application specific)
 
 ### Adding a POST handler
 
@@ -124,7 +130,7 @@ TestingLibraryElementError: Unable to find an element with the text: Quote uploa
 
 as expected. The next step needs us to figure out how to use `useFetch()` to POST data.
 
-For this we turn to our trusty [documentation|AI copilot|hapless junior engineer] and unearth the following mystical rhunes:
+For this we turn to our trusty [documentation | AI copilot | hapless colleague] and unearth the following mystical rhunes:
 
 ```jsx
 import useFetch from "react-fetch-hook";
