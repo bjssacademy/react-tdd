@@ -257,7 +257,7 @@ We'll create a basic spinner using CSS animation, rather import a library. Obvio
 
 - Component called `<Spinner reason="waiting..."/>`
 - Will have the ARIA role of `status`
-- Takes a single property `reason`. This is hidden text for accessibility.
+- Takes a single property `reason`.
 - `reason` is displayed as hidden text, to be picked up by accessibility tech
 - CSS animation will be used to create a classic circle spinner
 
