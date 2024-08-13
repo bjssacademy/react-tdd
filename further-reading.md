@@ -5,6 +5,7 @@
 - [React Testing Library Tutorial](https://www.robinwieruch.de/react-testing-library/)
 - [Which query should I use?](https://testing-library.com/docs/queries/about/#priority)
 - [Common Mistakes with React Testing Library](https://kentcdodds.com/blog/common-mistakes-with-react-testing-library)
+- [User Event library](https://testing-library.com/docs/user-event/intro)
 - [Vitest documentation](https://vitest.dev/guide/)
 - [BJSS Academy Advanced TDD in Go](https://github.com/bjssacademy/advanced-tdd)
 - [3 Rules of TDD](http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd)
