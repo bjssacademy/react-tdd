@@ -297,6 +297,7 @@ export default QuoteLoader;
 ```
 
 We've added an import to the file `Spinner.jsx`, which will contain our new React component.
+
 Create that now:
 
 ```jsx
@@ -347,19 +348,40 @@ We see this work of art (though I say so myself, ahem):
 
 ![Our circular spinner allegedly spinning but it is a static image](/images/spinner-onscreen.png)
 
+### Refactoring step
+
+I would probably - either now, or on the next iteration - decide that `<Spinner />` is a good reusable component. I would treat it as a standalone component in its own right and ensure it had standalone tests.
+
+The refactoring step would be to copy the domain-specific test we have into a new test file `Spineer.spec.jsx`, and generalise it:
+
+```jsx
+describe("Spinner", () => {
+  it("ahows reason as hidden accessibility text", async () => {
+    render(<Spinner reason="reason for the delay" />);
+    expect(await screen.getByRole("status")).toHaveTextContent(
+      "reason for the delay"
+    );
+  });
+});
+```
+
+This is quite a common refactoring in TDD: "Extract and generalise component".
+
 ## Adding error handling
 
-Happens to the best of us: your code makes an innocuous request, and something goes wrong at the other end. The API server may be unavailable; a recent API update might have broken either the server itself or the contract that we are expecting. Maybe somebody forgot to ut 50p in the electricity meter - who knows?
+It happens to the best of us: your code makes an innocuous request, and something goes wrong at the other end. The API server may be unavailable; a recent API update might have broken either the server itself or the contract that we are expecting.
+
+Maybe somebody forgot to put 50p in the electricity meter - who knows?
 
 When we get an error, we should do something about it.
 
 Error handling is a big subject, but it boils down to these ideas:
 
 - Can we _detect_ the error?
-- Can we _correct_ about the error?
-- Should we _inform_ the user about the error?
+- Can we _correct_ the error?
+- Should we _inform_ the user?
 
-For our `<QuoteLoader />` component, we can detect server errors, can't correct them, so decide to inform the user to try again later.
+For our `<QuoteLoader />` component, we can detect server errors, can't correct them, so we decide to inform the user to try again later.
 
 Our test can be to detect that error text. We can start with this conventional looking test:
 
@@ -372,7 +394,7 @@ it("informs the user of errors", async () => {
 });
 ```
 
-However, this test will never run correctly. It has no way of _focing_ a server error.
+However, this test will never run correctly. It has no way of _forcing_ a server error.
 
 For this, we use a feature of the Mock Service Worker library called [network behaviour overrides](https://mswjs.io/docs/best-practices/network-behavior-overrides. This allows us to simulate a server error, just for this test:
 
