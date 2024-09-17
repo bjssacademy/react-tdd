@@ -167,7 +167,7 @@ There's an important TDD principle at work here.
 
 > Test observable behaviour, not implementation details
 
-The React Testing library has the philsophy that we should test a web page as close to how a human user sees that page as possible.
+The React Testing library has the philosophy that we should test a web page as close to how a human user sees that page as possible.
 
 As a result, we're not going to look into specific implementation details of React components in our tests. That only makes our tests _brittle_.
 
