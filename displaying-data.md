@@ -42,7 +42,7 @@ We're starting by adding only the _Arrange_ and _Act_ sections of our test.
 We can run this partial test using
 
 ```bash
-npm run -- --test
+npm run test
 ```
 
 and we'll get a test failure:
